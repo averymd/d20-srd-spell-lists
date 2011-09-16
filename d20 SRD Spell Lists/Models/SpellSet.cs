@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using d20_SRD_Spell_Lists.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace d20_SRD_Spell_Lists.Models {
     public class SpellSet {
@@ -44,8 +45,8 @@ namespace d20_SRD_Spell_Lists.Models {
             userSpellList.Add(xElement);
         }
 
-        public IEnumerable<XElement> byClass(Character.SpellCastingClasses spellCastingClass) {
-            XElement spells = new XElement("spells");
+        public IEnumerable<Spell> byClass(Character.SpellCastingClasses spellCastingClass) {
+            List<Spell> spells = new List<Spell>();
 
             filterMasterSpellsByClass(spellCastingClass, spells);
             filterUserSpellsByClass(spellCastingClass, spells);
@@ -53,56 +54,43 @@ namespace d20_SRD_Spell_Lists.Models {
 
             removeHiddenSpells(spells);
 
-            return spells.Elements("spell");
+            return spells;
         }
 
-        private void filterMasterSpellsByClass(Character.SpellCastingClasses spellCastingClass, XElement spells) {
-            spells.Add((from sp in masterSpellList.Elements("spell")
-                        let level = (string)sp.Element("level")
-                        where level != null && level.Contains(Character.getClassName(spellCastingClass))
-                        select sp));
+        private void filterMasterSpellsByClass(Character.SpellCastingClasses spellCastingClass, List<Spell> spells) {
+            spells.AddRange(querySpellsByClass(masterSpellList, spellCastingClass, false, false).ToList<Spell>());
         }
 
-        private void filterCharacterSpellsByClass(Character.SpellCastingClasses spellCastingClass, XElement spells) {
+        private void filterCharacterSpellsByClass(Character.SpellCastingClasses spellCastingClass, List<Spell> spells) {
             if (characterSpellCount() > 0) {
-                spells.Add((from sp in charSpellList.Elements("spell")
-                            let level = (string)sp.Element("level")
-                            where level != null && level.Contains(Character.getClassName(spellCastingClass))
-                            select sp));
+                spells.AddRange(querySpellsByClass(charSpellList, spellCastingClass, false, true));
             }
         }
 
-        private void filterUserSpellsByClass(Character.SpellCastingClasses spellCastingClass, XElement spells) {
+        private void filterUserSpellsByClass(Character.SpellCastingClasses spellCastingClass, List<Spell> spells) {
             if (userSpellCount() > 0) {
-                spells.Add((from sp in userSpellList.Elements("spell")
-                            let level = (string)sp.Element("level")
-                            where level != null && level.Contains(Character.getClassName(spellCastingClass))
-                            select sp));
+                spells.AddRange(querySpellsByClass(userSpellList, spellCastingClass, true, false).ToList<Spell>());
             }
         }
 
-        private void removeHiddenSpells(XElement spells) {
+        private void removeHiddenSpells(List<Spell> spells) {
             if (hiddenSpellCount() > 0) {
                 foreach (string hiddenSpellName in (from hp in userSpellList.Elements("hidden_spell").Elements("spell")
                                                   select (string)hp.Element("name"))) {
-                                                      (from sp in spells.Elements("spell")
-                                                       where (string)sp.Element("name") == hiddenSpellName
-                                                       select sp).Remove();
+                                                      spells.RemoveAll(sp => sp.Name == hiddenSpellName);
                 }
             }
 
             if (hiddenCharacterSpellCount() > 0) {
                 foreach (string hiddenSpellName in (from hp in charSpellList.Elements("hidden_spell").Elements("spell")
                                                     select (string)hp.Element("name"))) {
-                    (from sp in spells.Elements("spell")
-                     where (string)sp.Element("name") == hiddenSpellName
-                     select sp).Remove();
+                                                        spells.RemoveAll(sp => sp.Name == hiddenSpellName);
                 }
             }
         }
 
-        public IEnumerable<XElement> byClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level) {
-            XElement spells = new XElement("spells");
+        public IEnumerable<Spell> byClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level) {
+            List<Spell> spells = new List<Spell>();
 
             filterMasterSpellsByClassAndLevel(spellCastingClass, level, spells);
             filterUserSpellsByClassAndLevel(spellCastingClass, level, spells);
@@ -110,32 +98,63 @@ namespace d20_SRD_Spell_Lists.Models {
 
             removeHiddenSpells(spells);
 
-            return spells.Elements("spell");
+            return spells;
         }
 
-        private void filterCharacterSpellsByClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level, XElement spells) {
+        private void filterCharacterSpellsByClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level, List<Spell> spells) {
             if (characterSpellCount() > 0) {
-                spells.Add((from sp in charSpellList.Elements("spell")
-                            let xmlLevel = (string)sp.Element("level")
-                            where xmlLevel != null && xmlLevel.Contains(Character.getClassName(spellCastingClass) + " " + level.ToString())
-                            select sp));
+                spells.AddRange(querySpellsByClassAndLevel(charSpellList, spellCastingClass, level, false, true));
             }
         }
 
-        private void filterUserSpellsByClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level, XElement spells) {
+        private void filterUserSpellsByClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level, List<Spell> spells) {
             if (userSpellCount() > 0) {
-                spells.Add((from sp in userSpellList.Elements("spell")
-                            let xmlLevel = (string)sp.Element("level")
-                            where xmlLevel != null && xmlLevel.Contains(Character.getClassName(spellCastingClass) + " " + level.ToString())
-                            select sp));
+                spells.AddRange(querySpellsByClassAndLevel(userSpellList, spellCastingClass, level, true, false).ToList<Spell>());
             }
         }
 
-        private void filterMasterSpellsByClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level, XElement spells) {
-            spells.Add((from sp in masterSpellList.Elements("spell")
-                        let xmlLevel = (string)sp.Element("level")
-                        where xmlLevel != null && xmlLevel.Contains(Character.getClassName(spellCastingClass) + " " + level.ToString())
-                        select sp));
+        private IEnumerable<Spell> querySpellsByClassAndLevel(XElement list, Character.SpellCastingClasses spellCastingClass, int level, bool isCustom, bool isCharCustom) {
+            string c = Character.getClassName(spellCastingClass);
+            Regex levelReg = new Regex(@" (\d+)?");
+            return (from sp in list.Elements("spell")
+                    let xmlLevel = (string)sp.Element("level")
+                    let xmlComp = (string)sp.Element("components")
+                    let xmlDesc = (string)sp.Element("short_description")
+                    where xmlLevel != null && xmlLevel.Contains(c + " " + level.ToString())
+                    orderby levelReg.Match(xmlLevel, xmlLevel.IndexOf(c)).Groups[1].Value
+                    select new Spell {
+                        IsPrepped = false,
+                        Name = sp.Element("name").Value,
+                        Level = int.Parse(levelReg.Match(xmlLevel, xmlLevel.IndexOf(c)).Groups[1].Value),
+                        Component = (xmlComp != null ? xmlComp : ""),
+                        ShortDescription = (xmlDesc != null ? xmlDesc : ""),
+                        IsCustom = isCustom,
+                        IsCharCustom = isCharCustom
+                    });
+        }
+
+        private IEnumerable<Spell> querySpellsByClass(XElement list, Character.SpellCastingClasses spellCastingClass, bool isCustom, bool isCharCustom) {
+            string c = Character.getClassName(spellCastingClass);
+            Regex levelReg = new Regex(@" (\d+),?");
+            return (from sp in list.Elements("spell")
+                    let xmlLevel = (string)sp.Element("level")
+                    let xmlComp = (string)sp.Element("components")
+                    let xmlDesc = (string)sp.Element("short_description")
+                    where xmlLevel != null && xmlLevel.Contains(c)
+                    orderby levelReg.Match(xmlLevel, xmlLevel.IndexOf(c)).Groups[1].Value
+                    select new Spell {
+                        IsPrepped = false,
+                        Name = sp.Element("name").Value,
+                        Level = int.Parse(levelReg.Match(xmlLevel, xmlLevel.IndexOf(c)).Groups[1].Value),
+                        Component = (xmlComp != null ? xmlComp : ""),
+                        ShortDescription = (xmlDesc != null ? xmlDesc : ""),
+                        IsCustom = isCustom,
+                        IsCharCustom = isCharCustom
+                    });
+        }
+
+        private void filterMasterSpellsByClassAndLevel(Character.SpellCastingClasses spellCastingClass, int level, List<Spell> spells) {
+            spells.AddRange(querySpellsByClassAndLevel(masterSpellList, spellCastingClass, level, false, false).ToList<Spell>());
         }
 
         /// <summary>

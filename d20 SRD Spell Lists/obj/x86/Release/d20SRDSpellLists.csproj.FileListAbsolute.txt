@@ -9,3 +9,5 @@ F:\spelllists\d20 SRD Spell Lists\obj\x86\Release\d20 SRD Spell Lists.pdb
 F:\spelllists\d20 SRD Spell Lists\bin\Release\d20 SRD Spell Lists.exe.config
 F:\spelllists\d20 SRD Spell Lists\bin\Release\AppData\MasterSpellList.xml
 F:\spelllists\d20 SRD Spell Lists\bin\Release\AppData\UserSpellList.xml
+F:\spelllists\d20 SRD Spell Lists\obj\x86\Release\d20_SRD_Spell_Lists.FrmCredits.resources
+F:\spelllists\d20 SRD Spell Lists\obj\x86\Release\d20_SRD_Spell_Lists.FrmMain.resources

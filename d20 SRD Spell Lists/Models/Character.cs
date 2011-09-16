@@ -271,5 +271,16 @@ namespace d20_SRD_Spell_Lists.Models {
 
             }
         }
+
+        public static string[] ClassNames {
+            get {
+                List<string> classes = new List<string>();
+                foreach (SpellCastingClasses cl in Enum.GetValues(typeof(SpellCastingClasses))) {
+                    classes.Add(getClassName(cl));
+                }
+
+                return classes.ToArray<string>();
+            }
+        }
     }
 }

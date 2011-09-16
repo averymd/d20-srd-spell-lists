@@ -6,6 +6,7 @@ using Xunit;
 using d20_SRD_Spell_Lists.Models;
 using System.Xml.Linq;
 using System.IO;
+using d20_SRD_Spell_Lists.Properties;
 
 namespace d20_SRD_Spell_Lists_Tests
 {
@@ -48,6 +49,23 @@ namespace d20_SRD_Spell_Lists_Tests
                     SpellSet spells = new SpellSet(masterSpellList, "phony.xml");
                 });
         }
+
+        //[Fact]
+        //public void savingWithoutPreexistingUserFileCreatesOne() {
+        //    if (System.IO.File.Exists(Settings.Default.UserSpells)) {
+        //        System.IO.File.Delete(Settings.Default.UserSpells);
+        //    }
+        //    SpellSet spells = new SpellSet(masterSpellList);
+        //    spells.addUserSpell(new XElement("spell",
+        //        new XElement("name", "custom test spell")
+        //        ));
+            
+        //    Assert.DoesNotThrow(delegate {
+        //        spells.save();
+        //    });
+
+        //    Assert.True(System.IO.File.Exists(Settings.Default.UserSpells));
+        //}
 
         [Fact]
         public void loadingValidMasterXMLShouldResultIn699MasterSpells() {
