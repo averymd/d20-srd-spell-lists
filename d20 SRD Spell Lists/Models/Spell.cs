@@ -8,7 +8,7 @@ namespace d20_SRD_Spell_Lists.Models {
         public bool IsPrepped { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
-        public string Component { get; set; }
+        public string Components { get; set; }
         public string ShortDescription { get; set; }
         public bool IsCustom { get; set; }
         public bool IsCharCustom { get; set; }

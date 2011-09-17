@@ -55,14 +55,15 @@
             // 
             // mainTabControl
             // 
+            this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mainTabControl.Controls.Add(this.spellListTab);
             this.mainTabControl.Controls.Add(this.characterTab);
-            this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mainTabControl.Location = new System.Drawing.Point(0, 30);
             this.mainTabControl.Multiline = true;
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(571, 375);
+            this.mainTabControl.Size = new System.Drawing.Size(784, 534);
             this.mainTabControl.TabIndex = 0;
             // 
             // spellListTab
@@ -73,7 +74,7 @@
             this.spellListTab.Location = new System.Drawing.Point(4, 22);
             this.spellListTab.Name = "spellListTab";
             this.spellListTab.Padding = new System.Windows.Forms.Padding(3);
-            this.spellListTab.Size = new System.Drawing.Size(563, 349);
+            this.spellListTab.Size = new System.Drawing.Size(776, 508);
             this.spellListTab.TabIndex = 0;
             this.spellListTab.Text = "Spell List";
             this.spellListTab.UseVisualStyleBackColor = true;
@@ -81,6 +82,8 @@
             // spellsDataGridView
             // 
             this.spellsDataGridView.AllowUserToOrderColumns = true;
+            this.spellsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.spellsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.spellsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.prepColumn,
@@ -89,10 +92,9 @@
             this.descColumn,
             this.customColumn,
             this.charCustomColumn});
-            this.spellsDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.spellsDataGridView.Location = new System.Drawing.Point(3, 44);
             this.spellsDataGridView.Name = "spellsDataGridView";
-            this.spellsDataGridView.Size = new System.Drawing.Size(557, 302);
+            this.spellsDataGridView.Size = new System.Drawing.Size(770, 461);
             this.spellsDataGridView.TabIndex = 2;
             // 
             // classComboBox
@@ -138,7 +140,7 @@
             this.helpToolStripButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(571, 25);
+            this.mainToolStrip.Size = new System.Drawing.Size(784, 25);
             this.mainToolStrip.TabIndex = 1;
             // 
             // newToolStripButton
@@ -241,7 +243,7 @@
             // 
             // componentColumn
             // 
-            this.componentColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.componentColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.componentColumn.DataPropertyName = "Components";
             this.componentColumn.HeaderText = "Comp";
             this.componentColumn.Name = "componentColumn";
@@ -258,25 +260,25 @@
             // 
             this.customColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.customColumn.DataPropertyName = "IsCustom";
-            this.customColumn.HeaderText = "A?";
+            this.customColumn.HeaderText = "Custom?";
             this.customColumn.Name = "customColumn";
             this.customColumn.ReadOnly = true;
-            this.customColumn.Width = 26;
+            this.customColumn.Width = 54;
             // 
             // charCustomColumn
             // 
             this.charCustomColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.charCustomColumn.DataPropertyName = "IsCharCustom";
-            this.charCustomColumn.HeaderText = "C";
+            this.charCustomColumn.HeaderText = "Char?";
             this.charCustomColumn.Name = "charCustomColumn";
             this.charCustomColumn.ReadOnly = true;
-            this.charCustomColumn.Width = 20;
+            this.charCustomColumn.Width = 41;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 405);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.mainToolStrip);
             this.Controls.Add(this.mainTabControl);
             this.Name = "FrmMain";

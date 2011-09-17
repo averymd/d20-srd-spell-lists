@@ -126,7 +126,7 @@ namespace d20_SRD_Spell_Lists.Models {
                         IsPrepped = false,
                         Name = sp.Element("name").Value,
                         Level = int.Parse(levelReg.Match(xmlLevel, xmlLevel.IndexOf(c)).Groups[1].Value),
-                        Component = (xmlComp != null ? xmlComp : ""),
+                        Components = (xmlComp != null ? xmlComp : ""),
                         ShortDescription = (xmlDesc != null ? xmlDesc : ""),
                         IsCustom = isCustom,
                         IsCharCustom = isCharCustom
@@ -146,7 +146,7 @@ namespace d20_SRD_Spell_Lists.Models {
                         IsPrepped = false,
                         Name = sp.Element("name").Value,
                         Level = int.Parse(levelReg.Match(xmlLevel, xmlLevel.IndexOf(c)).Groups[1].Value),
-                        Component = (xmlComp != null ? xmlComp : ""),
+                        Components = (xmlComp != null ? xmlComp : ""),
                         ShortDescription = (xmlDesc != null ? xmlDesc : ""),
                         IsCustom = isCustom,
                         IsCharCustom = isCharCustom
