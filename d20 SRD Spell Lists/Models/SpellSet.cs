@@ -45,7 +45,7 @@ namespace d20_SRD_Spell_Lists.Models {
             userSpellList.Add(xElement);
         }
 
-        public IEnumerable<Spell> byClass(Character.SpellCastingClasses spellCastingClass) {
+        public IList<Spell> byClass(Character.SpellCastingClasses spellCastingClass) {
             List<Spell> spells = new List<Spell>();
 
             filterMasterSpellsByClass(spellCastingClass, spells);

@@ -50,7 +50,8 @@ namespace d20_SRD_Spell_Lists {
             ComboBox classList = (ComboBox)sender;
 
             string charClass = classList.SelectedItem.ToString();
-            this.spellsDataGridView.DataSource = spells.byClass((Character.SpellCastingClasses)Enum.Parse(typeof(Character.SpellCastingClasses), charClass, true));            
+            BindingList<Spell> spellList = new BindingList<Spell>(spells.byClass((Character.SpellCastingClasses)Enum.Parse(typeof(Character.SpellCastingClasses), charClass, true)));
+            this.spellsDataGridView.DataSource = spellList;
         }
 
         private void charClassComboBox_SelectedIndexChanged(object sender, EventArgs e) {
@@ -133,6 +134,7 @@ namespace d20_SRD_Spell_Lists {
 
         private void saveToolStripButton_Click(object sender, EventArgs e) {
             try {
+                spells.save();
                 character.save();
             } catch (NoCharacterFileException) {
                 SaveFileDialog sfd = new SaveFileDialog();
