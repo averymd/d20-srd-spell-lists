@@ -108,6 +108,7 @@
   <ItemGroup>
     <Content Include="AppData\MasterSpellList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="AppData\UserSpellList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
