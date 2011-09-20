@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<character>
-  <spells>
-    <spell>
-      <name>Dummy Character Spell</name>
-      <short_description>A short description.</short_description>
-    </spell>
-  </spells>
-</character>

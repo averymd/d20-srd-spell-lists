@@ -1,7 +1,0 @@
-f:\spelllists\d20 SRD Spell Lists Tests\bin\Release\d20 SRD Spell Lists Tests.dll
-f:\spelllists\d20 SRD Spell Lists Tests\bin\Release\d20 SRD Spell Lists Tests.pdb
-f:\spelllists\d20 SRD Spell Lists Tests\bin\Release\xunit.dll
-f:\spelllists\d20 SRD Spell Lists Tests\bin\Release\xunit.xml
-f:\spelllists\d20 SRD Spell Lists Tests\obj\Release\ResolveAssemblyReference.cache
-f:\spelllists\d20 SRD Spell Lists Tests\obj\Release\d20 SRD Spell Lists Tests.dll
-f:\spelllists\d20 SRD Spell Lists Tests\obj\Release\d20 SRD Spell Lists Tests.pdb
