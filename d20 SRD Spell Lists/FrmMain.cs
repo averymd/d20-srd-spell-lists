@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using d20_SRD_Spell_Lists.Models;
+using d20_SRD_Spell_Lists.Exceptions;
 
 namespace d20_SRD_Spell_Lists {
     public partial class FrmMain : Form {
@@ -20,7 +21,17 @@ namespace d20_SRD_Spell_Lists {
             spells = new SpellSet();
             spellsDataGridView.AutoGenerateColumns = false;
 
-            setupClassList();
+            setupAttributes();
+            setupClassList();           
+        }
+
+        private void setupAttributes() {
+            txtStrength_TextChanged(txtStrength, new EventArgs());
+            txtDexterity_TextChanged(txtDexterity, new EventArgs());
+            txtConstitution_TextChanged(txtConstitution, new EventArgs());
+            txtIntelligence_TextChanged(txtIntelligence, new EventArgs());
+            txtWisdom_TextChanged(txtWisdom, new EventArgs());
+            txtCharisma_TextChanged(txtCharisma, new EventArgs());
         }
 
         private void setupClassList() {
@@ -28,6 +39,11 @@ namespace d20_SRD_Spell_Lists {
             classComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             classComboBox.SelectedIndexChanged += new System.EventHandler(classComboBox_SelectedIndexChanged);
             classComboBox_SelectedIndexChanged(classComboBox, new EventArgs());
+
+            charClassComboBox.DataSource = Character.ClassNames;
+            charClassComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            charClassComboBox.SelectedIndexChanged += new System.EventHandler(charClassComboBox_SelectedIndexChanged);
+            charClassComboBox_SelectedIndexChanged(charClassComboBox, new EventArgs());
         }
 
         private void classComboBox_SelectedIndexChanged(object sender, EventArgs e) {
@@ -35,6 +51,28 @@ namespace d20_SRD_Spell_Lists {
 
             string charClass = classList.SelectedItem.ToString();
             this.spellsDataGridView.DataSource = spells.byClass((Character.SpellCastingClasses)Enum.Parse(typeof(Character.SpellCastingClasses), charClass, true));            
+        }
+
+        private void charClassComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            ComboBox classList = (ComboBox)sender;
+
+            string charClass = classList.SelectedItem.ToString();
+            character.CharacterClass = (Character.SpellCastingClasses)Enum.Parse(typeof(Character.SpellCastingClasses), charClass);
+            this.classComboBox.SelectedItem = charClassComboBox.SelectedItem;
+            updateSpellDCs();
+            updateExtraSpells();
+        }
+
+        private void updateExtraSpells() {
+            for (int i = 0; i < character.BonusSpells.Length; i++) {
+                ((Label)this.Controls.Find("lblExtra" + i, true)[0]).Text = character.BonusSpells[i].ToString();
+            }
+        }
+
+        private void updateSpellDCs() {
+            for (int i = 0; i < 10; i++) {
+                ((Label)this.Controls.Find("lblDC" + i, true)[0]).Text = (10 + i + character.SpellCastingAttributeMod).ToString();
+            }
         }
 
         private void txtStrength_Validating(object sender, CancelEventArgs e) {
@@ -70,6 +108,8 @@ namespace d20_SRD_Spell_Lists {
             if (txtIntelligence.Text != "") {
                 character.Intelligence = int.Parse(txtIntelligence.Text);
                 lblIntMod.Text = String.Format((character.Intelligence >= 0) ? "+{0:D}" : "{0:D}", character.IntelligenceMod);
+                updateSpellDCs();
+                updateExtraSpells();
             }
         }
 
@@ -77,6 +117,8 @@ namespace d20_SRD_Spell_Lists {
             if (txtWisdom.Text != "") {
                 character.Wisdom = int.Parse(txtWisdom.Text);
                 lblWisMod.Text = String.Format((character.Wisdom >= 0) ? "+{0:D}" : "{0:D}", character.WisdomMod);
+                updateSpellDCs();
+                updateExtraSpells();
             }
         }
 
@@ -84,7 +126,58 @@ namespace d20_SRD_Spell_Lists {
             if (txtCharisma.Text != "") {
                 character.Charisma = int.Parse(txtCharisma.Text);
                 lblChaMod.Text = String.Format((character.Charisma >= 0) ? "+{0:D}" : "{0:D}", character.CharismaMod);
+                updateSpellDCs();
+                updateExtraSpells();
             }
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e) {
+            try {
+                character.save();
+            } catch (NoCharacterFileException) {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.AddExtension = true;
+                sfd.Filter = "Character files (*.xml)|*.xml|All files (*.*)|*.*";
+                sfd.FilterIndex = 1;
+                sfd.RestoreDirectory = true;
+
+                if (sfd.ShowDialog() == DialogResult.OK) {
+                    string filename = sfd.FileName;
+                    character.FileName = filename;
+                    character.save();
+                }
+            }
+        }
+
+        private void txtCharacter_TextChanged(object sender, EventArgs e) {
+            character.Name = txtCharacter.Text;
+        }
+
+        private void openToolStripButton_Click(object sender, EventArgs e) {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Character files (*.xml)|*.xml|All files (*.*)|*.*";
+            ofd.FilterIndex = 1;
+            ofd.RestoreDirectory = true;
+
+            if (ofd.ShowDialog() == DialogResult.OK) {
+                try {
+                    character = new Character(ofd.FileName);
+                    loadValues();
+                } catch (Exception ex) {
+                    MessageBox.Show("Error: Could not read the character file. Original error: " + ex.Message);
+                }
+            }
+        }
+
+        private void loadValues() {
+            txtCharacter.Text = character.Name;
+            txtStrength.Text = character.Strength.ToString();
+            txtDexterity.Text = character.Dexterity.ToString();
+            txtConstitution.Text = character.Constitution.ToString();
+            txtIntelligence.Text = character.Intelligence.ToString();
+            txtWisdom.Text = character.Wisdom.ToString();
+            txtCharisma.Text = character.Charisma.ToString();
+            charClassComboBox.SelectedItem = Character.getClassName(character.CharacterClass);
         }
     }
 }

@@ -37,6 +37,12 @@ namespace d20_SRD_Spell_Lists.Models {
             return (int)Math.Floor((score - 10) / 2.00);
         }
 
+        public string FileName {
+            set {
+                charXmlFile = value;
+            }
+        }
+
         public string Name {
             get {
                 if (charDetails.Element("name") != null) {
@@ -58,7 +64,7 @@ namespace d20_SRD_Spell_Lists.Models {
                 if (charDetails.Element("strength") != null) {
                     return int.Parse(charDetails.Element("strength").Value);
                 }
-                return 0;
+                return 10;
             }
             set {
                 if (charDetails.Element("strength") != null) {
@@ -74,7 +80,7 @@ namespace d20_SRD_Spell_Lists.Models {
                 if (charDetails.Element("dexterity") != null) {
                     return int.Parse(charDetails.Element("dexterity").Value);
                 }
-                return 0;
+                return 10;
             }
             set {
                 if (charDetails.Element("dexterity") != null) {
@@ -90,7 +96,7 @@ namespace d20_SRD_Spell_Lists.Models {
                 if (charDetails.Element("constitution") != null) {
                     return int.Parse(charDetails.Element("constitution").Value);
                 }
-                return 0;
+                return 10;
             }
             set {
                 if (charDetails.Element("constitution") != null) {
@@ -106,7 +112,7 @@ namespace d20_SRD_Spell_Lists.Models {
                 if (charDetails.Element("intelligence") != null) {
                     return int.Parse(charDetails.Element("intelligence").Value);
                 }
-                return 0;
+                return 10;
             }
             set {
                 if (charDetails.Element("intelligence") != null) {
@@ -122,7 +128,7 @@ namespace d20_SRD_Spell_Lists.Models {
                 if (charDetails.Element("wisdom") != null) {
                     return int.Parse(charDetails.Element("wisdom").Value);
                 }
-                return 0;
+                return 10;
             } 
             set {
                 if (charDetails.Element("wisdom") != null) {
@@ -138,7 +144,7 @@ namespace d20_SRD_Spell_Lists.Models {
                 if (charDetails.Element("charisma") != null) {
                     return int.Parse(charDetails.Element("charisma").Value);
                 }
-                return 0;
+                return 10;
             }
             set {
                 if (charDetails.Element("charisma") != null) {
