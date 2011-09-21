@@ -22,7 +22,11 @@ namespace d20_SRD_Spell_Lists {
             spellsDataGridView.AutoGenerateColumns = false;
 
             setupAttributes();
-            setupClassList();           
+            setupClassList();
+
+            txtIntelligence.LostFocus += new EventHandler(txtIntelligence_LostFocus);
+            txtWisdom.LostFocus += new EventHandler(txtWisdom_LostFocus);
+            txtCharisma.LostFocus += new EventHandler(txtCharisma_LostFocus);
         }
 
         private void setupAttributes() {
@@ -66,7 +70,11 @@ namespace d20_SRD_Spell_Lists {
 
         private void updateExtraSpells() {
             for (int i = 0; i < character.BonusSpells.Length; i++) {
-                ((Label)this.Controls.Find("lblExtra" + i, true)[0]).Text = character.BonusSpells[i].ToString();
+                if (character.BonusSpells[i] >= 0) {
+                    ((Label)this.Controls.Find("lblExtra" + i, true)[0]).Text = character.BonusSpells[i].ToString();
+                } else {
+                    ((Label)this.Controls.Find("lblExtra" + i, true)[0]).Text = "\u2014";
+                }
             }
         }
 
@@ -109,6 +117,11 @@ namespace d20_SRD_Spell_Lists {
             if (txtIntelligence.Text != "") {
                 character.Intelligence = int.Parse(txtIntelligence.Text);
                 lblIntMod.Text = String.Format((character.Intelligence >= 0) ? "+{0:D}" : "{0:D}", character.IntelligenceMod);
+            }
+        }
+
+        private void txtIntelligence_LostFocus(object sender, EventArgs e) {
+            if (character.SpellCastingAttribute == character.Intelligence) {
                 updateSpellDCs();
                 updateExtraSpells();
             }
@@ -118,6 +131,11 @@ namespace d20_SRD_Spell_Lists {
             if (txtWisdom.Text != "") {
                 character.Wisdom = int.Parse(txtWisdom.Text);
                 lblWisMod.Text = String.Format((character.Wisdom >= 0) ? "+{0:D}" : "{0:D}", character.WisdomMod);
+            }
+        }
+
+        private void txtWisdom_LostFocus(object sender, EventArgs e) {
+            if (character.SpellCastingAttribute == character.Wisdom) {
                 updateSpellDCs();
                 updateExtraSpells();
             }
@@ -127,6 +145,11 @@ namespace d20_SRD_Spell_Lists {
             if (txtCharisma.Text != "") {
                 character.Charisma = int.Parse(txtCharisma.Text);
                 lblChaMod.Text = String.Format((character.Charisma >= 0) ? "+{0:D}" : "{0:D}", character.CharismaMod);
+            }
+        }
+
+        private void txtCharisma_LostFocus(object sender, EventArgs e) {
+            if (character.SpellCastingAttribute == character.Charisma) {
                 updateSpellDCs();
                 updateExtraSpells();
             }
