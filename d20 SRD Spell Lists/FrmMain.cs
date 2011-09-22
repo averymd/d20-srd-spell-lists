@@ -16,6 +16,7 @@ namespace d20_SRD_Spell_Lists {
         private MasterSpellSet spells;
         private Character character;
         private string characterFile;
+        private bool loadingCharacter;
 
         public FrmMain() {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace d20_SRD_Spell_Lists {
             character = new Character();
             spells = new MasterSpellSet();
             spellsDataGridView.AutoGenerateColumns = false;
+            loadingCharacter = false;
 
             setupAttributes();
             setupClassList();
@@ -86,7 +88,9 @@ namespace d20_SRD_Spell_Lists {
                 updateClassInformation(classList);
                 updateSpellDCs();
                 updateExtraSpells();
-                offerNewSpells();
+                if (!loadingCharacter) {
+                    offerNewSpells();
+                }
             }
         }
 
@@ -140,7 +144,7 @@ namespace d20_SRD_Spell_Lists {
         }
 
         private void saveToolStripButton_Click(object sender, EventArgs e) {
-            if (characterFile != "") {
+            if (characterFile != null && characterFile != "") {
                 try {
                     saveCharacter();
                 } catch (IOException) {
@@ -184,10 +188,13 @@ namespace d20_SRD_Spell_Lists {
             if (ofd.ShowDialog() == DialogResult.OK) {
                 try {
                     characterFile = ofd.FileName;
+                    loadingCharacter = true;
                     loadCharacter();
                     loadValues();
                 } catch (Exception ex) {
                     MessageBox.Show("Error: Could not read the character file. Original error: " + ex.Message);
+                } finally {
+                    loadingCharacter = false;
                 }
             }
         }
@@ -203,6 +210,7 @@ namespace d20_SRD_Spell_Lists {
             txtCharacter.Text = character.Name;
             txtSpellCastingAttribute.Text = character.SpellCastingAttribute.ToString();
             charClassComboBox.SelectedItem = Character.getSpellcastingClassName(character.CharacterClass);
+            refreshSpellList();
         }
 
         private void btnAdd_Click(object sender, EventArgs e) {
