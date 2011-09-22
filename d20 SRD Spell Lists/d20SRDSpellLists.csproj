@@ -61,12 +61,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\NoCharacterFileException.cs" />
     <Compile Include="FrmCredits.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmCredits.Designer.cs">
       <DependentUpon>FrmCredits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\NoCharacterFileException.cs" />
+    <Compile Include="FrmAddEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddEdit.Designer.cs">
+      <DependentUpon>FrmAddEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -76,9 +82,12 @@
     </Compile>
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Spell.cs" />
-    <Compile Include="Models\SpellSet.cs" />
+    <Compile Include="Models\MasterSpellSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAddEdit.resx">
+      <DependentUpon>FrmAddEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmCredits.resx">
       <DependentUpon>FrmCredits.cs</DependentUpon>
     </EmbeddedResource>

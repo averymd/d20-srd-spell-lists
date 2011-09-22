@@ -8,64 +8,107 @@ using System.Text;
 using System.Windows.Forms;
 using d20_SRD_Spell_Lists.Models;
 using d20_SRD_Spell_Lists.Exceptions;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace d20_SRD_Spell_Lists {
     public partial class FrmMain : Form {
-        private SpellSet spells;
+        private MasterSpellSet spells;
         private Character character;
+        private string characterFile;
 
         public FrmMain() {
             InitializeComponent();
 
             character = new Character();
-            spells = new SpellSet();
+            spells = new MasterSpellSet();
             spellsDataGridView.AutoGenerateColumns = false;
 
             setupAttributes();
             setupClassList();
+            setupSpells();
 
-            txtIntelligence.LostFocus += new EventHandler(txtIntelligence_LostFocus);
-            txtWisdom.LostFocus += new EventHandler(txtWisdom_LostFocus);
-            txtCharisma.LostFocus += new EventHandler(txtCharisma_LostFocus);
+            //spellsDataGridView.CellValueChanged += new DataGridViewCellEventHandler(spellsDataGridView_CellValueChanged);
         }
 
+        private void setupSpells() {
+            this.spellsDataGridView.DataSource = character.Spells;
+        }
+
+        //private void spellsDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
+        //    string question = "Should this update apply to just this character's spell list?";
+        //    string title = "Spell Update";
+
+        //    var result = MessageBox.Show(question, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+        //    if (result == DialogResult.Yes) {
+        //        string newValue = spellsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+        //        Spell newSpell = spellsDataGridView.Rows[e.RowIndex].DataBoundItem as Spell;
+        //        // If it's a custom app spell already, hide that one for the character, then add the character spell.
+        //        if (newSpell.IsCustom) {
+        //            if (spellsDataGridView.Columns[e.ColumnIndex].HeaderText != "Name") {
+        //                spells.hideMasterSpellForCharacter("name", newSpell.Name);
+        //            } else {
+        //                spells.hideMasterSpellForCharacter("short_description", newSpell.ShortDescription);
+        //            }
+        //            spells.addCharacterSpell(newSpell, Character.getSpellcastingClass(charClassComboBox.SelectedItem.ToString()));
+        //            newSpell.IsCharCustom = true;
+        //        } else if (newSpell.IsCharCustom) {
+        //            // But what if it's already a character-specific spell?! ...then I just need to save it.
+        //            // ...so... does that mean do nothing?
+        //        }
+        //    } else if (result == DialogResult.No) {
+        //        Spell newSpell = spellsDataGridView.Rows[e.RowIndex].DataBoundItem as Spell;
+        //        if (newSpell.IsCharCustom) {
+        //            // It's a custom character spell, which means I should hide the chara
+        //        }
+        //    }
+        //}
+
         private void setupAttributes() {
-            txtStrength_TextChanged(txtStrength, new EventArgs());
-            txtDexterity_TextChanged(txtDexterity, new EventArgs());
-            txtConstitution_TextChanged(txtConstitution, new EventArgs());
-            txtIntelligence_TextChanged(txtIntelligence, new EventArgs());
-            txtWisdom_TextChanged(txtWisdom, new EventArgs());
-            txtCharisma_TextChanged(txtCharisma, new EventArgs());
+            txtSpellCastingAttribute.LostFocus += new EventHandler(txtSpellCastingAttribute_LostFocus);
+            txtSpellCastingAttribute_TextChanged(txtSpellCastingAttribute, new EventArgs());
         }
 
         private void setupClassList() {
-            classComboBox.DataSource = Character.ClassNames;
-            classComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            classComboBox.SelectedIndexChanged += new System.EventHandler(classComboBox_SelectedIndexChanged);
-            classComboBox_SelectedIndexChanged(classComboBox, new EventArgs());
-
-            charClassComboBox.DataSource = Character.ClassNames;
+            List<string> classOptions = new List<string>();
+            classOptions.Add("Choose a class...");
+            classOptions.AddRange(Character.ClassNames);
+            charClassComboBox.DataSource = classOptions;
             charClassComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             charClassComboBox.SelectedIndexChanged += new System.EventHandler(charClassComboBox_SelectedIndexChanged);
-            charClassComboBox_SelectedIndexChanged(charClassComboBox, new EventArgs());
-        }
-
-        private void classComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            ComboBox classList = (ComboBox)sender;
-
-            string charClass = classList.SelectedItem.ToString();
-            BindingList<Spell> spellList = new BindingList<Spell>(spells.byClass((Character.SpellCastingClasses)Enum.Parse(typeof(Character.SpellCastingClasses), charClass, true)));
-            this.spellsDataGridView.DataSource = spellList;
         }
 
         private void charClassComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             ComboBox classList = (ComboBox)sender;
 
+            if (classList.SelectedItem.ToString() != "Choose a class...") {
+                updateClassInformation(classList);
+                updateSpellDCs();
+                updateExtraSpells();
+                offerNewSpells();
+            }
+        }
+
+        private void offerNewSpells() {
+            string question = "Would you like to add all base " + character.CharacterClass.ToString() + " spells to the list?";
+            string title = "Add all spells?";
+            var result = MessageBox.Show(question, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == System.Windows.Forms.DialogResult.Yes) {
+                character.addAllClassSpells();
+                refreshSpellList();
+            }
+        }
+
+        private void refreshSpellList() {
+            spellsDataGridView.DataSource = null;
+            setupSpells();
+        }
+
+        private void updateClassInformation(ComboBox classList) {
             string charClass = classList.SelectedItem.ToString();
             character.CharacterClass = (Character.SpellCastingClasses)Enum.Parse(typeof(Character.SpellCastingClasses), charClass);
-            this.classComboBox.SelectedItem = charClassComboBox.SelectedItem;
-            updateSpellDCs();
-            updateExtraSpells();
+            lblSpellCastingAttribute.Text = character.SpellCastingAttributeName + ":";
         }
 
         private void updateExtraSpells() {
@@ -84,96 +127,50 @@ namespace d20_SRD_Spell_Lists {
             }
         }
 
-        private void txtStrength_Validating(object sender, CancelEventArgs e) {
-            int val;
-            if (txtStrength.Text != "" && !int.TryParse(txtStrength.Text, out val)) {
-                errorProvider.SetError(txtStrength, "Strength should be a number or empty.");
-                e.Cancel = true;
+        private void txtSpellCastingAttribute_TextChanged(object sender, EventArgs e) {
+            if (txtSpellCastingAttribute.Text != "") {
+                character.SpellCastingAttribute = int.Parse(txtSpellCastingAttribute.Text);
+                lblSpellCastingAttributeMod.Text = String.Format((character.SpellCastingAttributeMod >= 0) ? "+{0:D}" : "{0:D}", character.SpellCastingAttributeMod);
             }
         }
 
-        private void txtStrength_TextChanged(object sender, EventArgs e) {
-            if (txtStrength.Text != "") {
-                character.Strength = int.Parse(txtStrength.Text);
-                lblStrMod.Text = String.Format((character.StrengthMod >= 0) ? "+{0:D}" : "{0:D}", character.StrengthMod);
-            }
-        }
-
-        private void txtDexterity_TextChanged(object sender, EventArgs e) {
-            if (txtDexterity.Text != "") {
-                character.Dexterity = int.Parse(txtDexterity.Text);
-                lblDexMod.Text = String.Format((character.DexterityMod >= 0) ? "+{0:D}" : "{0:D}", character.DexterityMod);
-            }
-        }
-
-        private void txtConstitution_TextChanged(object sender, EventArgs e) {
-            if (txtConstitution.Text != "") {
-                character.Constitution = int.Parse(txtConstitution.Text);
-                lblConMod.Text = String.Format((character.Constitution >= 0) ? "+{0:D}" : "{0:D}", character.ConstitutionMod);
-            }
-        }
-
-        private void txtIntelligence_TextChanged(object sender, EventArgs e) {
-            if (txtIntelligence.Text != "") {
-                character.Intelligence = int.Parse(txtIntelligence.Text);
-                lblIntMod.Text = String.Format((character.Intelligence >= 0) ? "+{0:D}" : "{0:D}", character.IntelligenceMod);
-            }
-        }
-
-        private void txtIntelligence_LostFocus(object sender, EventArgs e) {
-            if (character.SpellCastingAttribute == character.Intelligence) {
-                updateSpellDCs();
-                updateExtraSpells();
-            }
-        }
-
-        private void txtWisdom_TextChanged(object sender, EventArgs e) {
-            if (txtWisdom.Text != "") {
-                character.Wisdom = int.Parse(txtWisdom.Text);
-                lblWisMod.Text = String.Format((character.Wisdom >= 0) ? "+{0:D}" : "{0:D}", character.WisdomMod);
-            }
-        }
-
-        private void txtWisdom_LostFocus(object sender, EventArgs e) {
-            if (character.SpellCastingAttribute == character.Wisdom) {
-                updateSpellDCs();
-                updateExtraSpells();
-            }
-        }
-
-        private void txtCharisma_TextChanged(object sender, EventArgs e) {
-            if (txtCharisma.Text != "") {
-                character.Charisma = int.Parse(txtCharisma.Text);
-                lblChaMod.Text = String.Format((character.Charisma >= 0) ? "+{0:D}" : "{0:D}", character.CharismaMod);
-            }
-        }
-
-        private void txtCharisma_LostFocus(object sender, EventArgs e) {
-            if (character.SpellCastingAttribute == character.Charisma) {
-                updateSpellDCs();
-                updateExtraSpells();
-            }
+        private void txtSpellCastingAttribute_LostFocus(object sender, EventArgs e) {
+            updateSpellDCs();
+            updateExtraSpells();
         }
 
         private void saveToolStripButton_Click(object sender, EventArgs e) {
-            try {
-                spells.save();
-                character.save();
-            } catch (NoCharacterFileException) {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.AddExtension = true;
-                sfd.Filter = "Character files (*.xml)|*.xml|All files (*.*)|*.*";
-                sfd.FilterIndex = 1;
-                sfd.RestoreDirectory = true;
-
-                if (sfd.ShowDialog() == DialogResult.OK) {
-                    string filename = sfd.FileName;
-                    character.FileName = filename;
-                    character.save();
+            if (characterFile != "") {
+                try {
+                    saveCharacter();
+                } catch (IOException) {
+                    getFilenameFromUserAndSave();
                 }
+            } else {
+                getFilenameFromUserAndSave();
             }
         }
 
+        private void getFilenameFromUserAndSave() {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.AddExtension = true;
+            sfd.Filter = "Character files (*.xml)|*.xml|All files (*.*)|*.*";
+            sfd.FilterIndex = 1;
+            sfd.RestoreDirectory = true;
+
+            if (sfd.ShowDialog() == DialogResult.OK) {
+                this.characterFile = sfd.FileName;
+                saveCharacter();
+            }
+        }
+       
+        private void saveCharacter() {
+            XmlSerializer serializer = new XmlSerializer(typeof(Character));
+            using (TextWriter writer = new StreamWriter(characterFile)) {
+                serializer.Serialize(writer, character);
+            }
+        }
+        
         private void txtCharacter_TextChanged(object sender, EventArgs e) {
             character.Name = txtCharacter.Text;
         }
@@ -186,7 +183,8 @@ namespace d20_SRD_Spell_Lists {
 
             if (ofd.ShowDialog() == DialogResult.OK) {
                 try {
-                    character = new Character(ofd.FileName);
+                    characterFile = ofd.FileName;
+                    loadCharacter();
                     loadValues();
                 } catch (Exception ex) {
                     MessageBox.Show("Error: Could not read the character file. Original error: " + ex.Message);
@@ -194,15 +192,26 @@ namespace d20_SRD_Spell_Lists {
             }
         }
 
+        private void loadCharacter() {
+            XmlSerializer serializer = new XmlSerializer(typeof(Character));
+            using (FileStream f = new FileStream(characterFile, FileMode.Open)) {
+                character = (Character)serializer.Deserialize(f);
+            }
+        }
+
         private void loadValues() {
             txtCharacter.Text = character.Name;
-            txtStrength.Text = character.Strength.ToString();
-            txtDexterity.Text = character.Dexterity.ToString();
-            txtConstitution.Text = character.Constitution.ToString();
-            txtIntelligence.Text = character.Intelligence.ToString();
-            txtWisdom.Text = character.Wisdom.ToString();
-            txtCharisma.Text = character.Charisma.ToString();
-            charClassComboBox.SelectedItem = Character.getClassName(character.CharacterClass);
+            txtSpellCastingAttribute.Text = character.SpellCastingAttribute.ToString();
+            charClassComboBox.SelectedItem = Character.getSpellcastingClassName(character.CharacterClass);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e) {
+            FrmAddEdit addForm = new FrmAddEdit(false, character);
+            var result = addForm.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK) {
+                character.Spells.Add(addForm.spell);
+                refreshSpellList();
+            }
         }
     }
 }
