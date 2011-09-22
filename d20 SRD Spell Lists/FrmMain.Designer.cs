@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblExtra9 = new System.Windows.Forms.Label();
@@ -70,26 +71,28 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblDirections = new System.Windows.Forms.Label();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.spellsDataGridView = new System.Windows.Forms.DataGridView();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.spellsDataGridView = new System.Windows.Forms.DataGridView();
             this.prepColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.levelColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.spellNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.componentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.editColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.deleteColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.editColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.deleteColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -601,6 +604,69 @@
             this.mainToolStrip.Size = new System.Drawing.Size(784, 25);
             this.mainToolStrip.TabIndex = 1;
             // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
+            // spellsDataGridView
+            // 
+            this.spellsDataGridView.AllowUserToAddRows = false;
+            this.spellsDataGridView.AllowUserToDeleteRows = false;
+            this.spellsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.spellsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.prepColumn,
+            this.levelColumn,
+            this.spellNameColumn,
+            this.componentColumn,
+            this.descColumn,
+            this.editColumn,
+            this.deleteColumn});
+            this.spellsDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.spellsDataGridView.Location = new System.Drawing.Point(0, 194);
+            this.spellsDataGridView.Name = "spellsDataGridView";
+            this.spellsDataGridView.ReadOnly = true;
+            this.spellsDataGridView.Size = new System.Drawing.Size(784, 368);
+            this.spellsDataGridView.TabIndex = 24;
+            this.spellsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.spellsDataGridView_CellContentClick);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(697, 165);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 25;
+            this.btnAdd.Text = "Add Spell";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::d20_SRD_Spell_Lists.Properties.Resources.edit_16;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.Width = 5;
+            // 
+            // dataGridViewImageColumn2
+            // 
+            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn2.HeaderText = "";
+            this.dataGridViewImageColumn2.Image = global::d20_SRD_Spell_Lists.Properties.Resources.editdelete_16;
+            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
+            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn2.Width = 5;
+            // 
             // newToolStripButton
             // 
             this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -639,11 +705,6 @@
             this.printToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.printToolStripButton.Text = "&Print";
             // 
-            // toolStripSeparator
-            // 
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
-            // 
             // cutToolStripButton
             // 
             this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -671,11 +732,6 @@
             this.pasteToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.pasteToolStripButton.Text = "&Paste";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // helpToolStripButton
             // 
             this.helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -684,31 +740,6 @@
             this.helpToolStripButton.Name = "helpToolStripButton";
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
-            // 
-            // spellsDataGridView
-            // 
-            this.spellsDataGridView.AllowUserToAddRows = false;
-            this.spellsDataGridView.AllowUserToDeleteRows = false;
-            this.spellsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.spellsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.spellsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.prepColumn,
-            this.levelColumn,
-            this.spellNameColumn,
-            this.componentColumn,
-            this.descColumn,
-            this.editColumn,
-            this.deleteColumn});
-            this.spellsDataGridView.Location = new System.Drawing.Point(12, 221);
-            this.spellsDataGridView.Name = "spellsDataGridView";
-            this.spellsDataGridView.ReadOnly = true;
-            this.spellsDataGridView.Size = new System.Drawing.Size(760, 329);
-            this.spellsDataGridView.TabIndex = 24;
             // 
             // prepColumn
             // 
@@ -759,30 +790,27 @@
             // editColumn
             // 
             this.editColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle5.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle5.NullValue")));
+            this.editColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.editColumn.HeaderText = "";
+            this.editColumn.Image = global::d20_SRD_Spell_Lists.Properties.Resources.edit_16;
             this.editColumn.Name = "editColumn";
             this.editColumn.ReadOnly = true;
-            this.editColumn.Text = "Edit";
+            this.editColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.editColumn.ToolTipText = "Edit spell";
             this.editColumn.Width = 5;
             // 
             // deleteColumn
             // 
             this.deleteColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.deleteColumn.HeaderText = "";
+            this.deleteColumn.Image = global::d20_SRD_Spell_Lists.Properties.Resources.editdelete_16;
             this.deleteColumn.Name = "deleteColumn";
             this.deleteColumn.ReadOnly = true;
-            this.deleteColumn.Text = "Delete";
+            this.deleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.deleteColumn.Width = 5;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(697, 192);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 25;
-            this.btnAdd.Text = "Add Spell";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // FrmMain
             // 
@@ -873,14 +901,16 @@
         private System.Windows.Forms.Label lblDC1;
         private System.Windows.Forms.Label lblDC0;
         private System.Windows.Forms.DataGridView spellsDataGridView;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DataGridViewTextBoxColumn prepColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn levelColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn spellNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn componentColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn editColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn deleteColumn;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.DataGridViewImageColumn editColumn;
+        private System.Windows.Forms.DataGridViewImageColumn deleteColumn;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
     }
 }
 

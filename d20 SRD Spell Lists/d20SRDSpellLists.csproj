@@ -102,6 +102,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -122,6 +123,12 @@
     <Content Include="AppData\UserSpellList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\editdelete-16.png" />
+    <None Include="Resources\edit-16.png" />
+    <None Include="Resources\editdelete-32.png" />
+    <None Include="Resources\edit-32.png" />
+    <None Include="Resources\editdelete-256.png" />
+    <None Include="Resources\edit-256.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

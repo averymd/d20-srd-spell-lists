@@ -37,36 +37,6 @@ namespace d20_SRD_Spell_Lists {
             this.spellsDataGridView.DataSource = character.Spells;
         }
 
-        //private void spellsDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
-        //    string question = "Should this update apply to just this character's spell list?";
-        //    string title = "Spell Update";
-
-        //    var result = MessageBox.Show(question, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-        //    if (result == DialogResult.Yes) {
-        //        string newValue = spellsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
-        //        Spell newSpell = spellsDataGridView.Rows[e.RowIndex].DataBoundItem as Spell;
-        //        // If it's a custom app spell already, hide that one for the character, then add the character spell.
-        //        if (newSpell.IsCustom) {
-        //            if (spellsDataGridView.Columns[e.ColumnIndex].HeaderText != "Name") {
-        //                spells.hideMasterSpellForCharacter("name", newSpell.Name);
-        //            } else {
-        //                spells.hideMasterSpellForCharacter("short_description", newSpell.ShortDescription);
-        //            }
-        //            spells.addCharacterSpell(newSpell, Character.getSpellcastingClass(charClassComboBox.SelectedItem.ToString()));
-        //            newSpell.IsCharCustom = true;
-        //        } else if (newSpell.IsCharCustom) {
-        //            // But what if it's already a character-specific spell?! ...then I just need to save it.
-        //            // ...so... does that mean do nothing?
-        //        }
-        //    } else if (result == DialogResult.No) {
-        //        Spell newSpell = spellsDataGridView.Rows[e.RowIndex].DataBoundItem as Spell;
-        //        if (newSpell.IsCharCustom) {
-        //            // It's a custom character spell, which means I should hide the chara
-        //        }
-        //    }
-        //}
-
         private void setupAttributes() {
             txtSpellCastingAttribute.LostFocus += new EventHandler(txtSpellCastingAttribute_LostFocus);
             txtSpellCastingAttribute_TextChanged(txtSpellCastingAttribute, new EventArgs());
@@ -220,6 +190,41 @@ namespace d20_SRD_Spell_Lists {
                 character.Spells.Add(addForm.spell);
                 refreshSpellList();
             }
+        }
+
+        private void spellsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+            if (isEditButtonCell(e)) {
+                Spell editItem = (Spell)spellsDataGridView.Rows[e.RowIndex].DataBoundItem;
+                FrmAddEdit editForm = new FrmAddEdit(true, character, editItem);
+                var result = editForm.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK) {
+                    character.Spells[character.Spells.IndexOf(editItem)] = editForm.spell;
+                    refreshSpellList();
+                }
+            } else if (isDeleteButtonCell(e)) {
+                Spell deleteItem = (Spell)spellsDataGridView.Rows[e.RowIndex].DataBoundItem;
+                string msg = "Are you sure you want to delete this spell from your character?";
+                string title = "Confirm";
+                var result = MessageBox.Show(msg, title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == System.Windows.Forms.DialogResult.Yes) {
+                    character.Spells.Remove(deleteItem);
+                    refreshSpellList();
+                }
+            }
+        }
+
+        private bool isDeleteButtonCell(DataGridViewCellEventArgs e) {
+            if (spellsDataGridView.Columns[e.ColumnIndex] is DataGridViewImageColumn && e.ColumnIndex == 6) {
+                return true;
+            }
+            return false;
+        }
+
+        private bool isEditButtonCell(DataGridViewCellEventArgs e) {
+            if (spellsDataGridView.Columns[e.ColumnIndex] is DataGridViewImageColumn && e.ColumnIndex == 5) {
+                return true;
+            }
+            return false;
         }
     }
 }

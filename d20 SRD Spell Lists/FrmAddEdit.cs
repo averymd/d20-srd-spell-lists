@@ -24,12 +24,20 @@ namespace d20_SRD_Spell_Lists {
 
             if (_spell != null) {
                 spell = _spell;
+                loadSpell();
             } else {
                 spell = new Spell();
             }
             character = _character;
             setupBaseSpells();
             txtName.LostFocus += new EventHandler(txtName_LostFocus);
+        }
+
+        private void loadSpell() {
+            txtName.Text = spell.Name;
+            txtLevel.Value = spell.Level;
+            txtComponents.Text = spell.Components;
+            txtDescription.Text = spell.ShortDescription;
         }
 
         void txtName_LostFocus(object sender, EventArgs e) {

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace d20_SRD_Spell_Lists.Models {
     public class Spell {
-        public bool IsPrepped { get; set; }
+        public string IsPrepped { get; set; }
         public string Name { get; set; }
         public string AltName { get; set; }
         public string School { get; set; }
