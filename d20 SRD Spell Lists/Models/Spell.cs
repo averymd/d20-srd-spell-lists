@@ -55,13 +55,40 @@ namespace d20_SRD_Spell_Lists.Models {
         }
     }
 
-    public class SpellComparer : IEqualityComparer<Spell> {
+    public class SpellEqualityComparer : IEqualityComparer<Spell> {
         public bool Equals(Spell x, Spell y) {
             return x.Name == y.Name;
         }
 
         public int GetHashCode(Spell obj) {
             return obj.Name.GetHashCode();
+        }
+    }
+
+    public class SpellInequalityComparer : IComparer<Spell> {
+
+        public int Compare(Spell x, Spell y) {
+            if (x.Level < y.Level) {
+                return -1;
+            }
+
+            if (x.Level == y.Level && x.Name.CompareTo(y.Name) < 0) {
+                return -1;
+            }
+
+            if (x.Level == y.Level && x.Name.CompareTo(y.Name) == 0) {
+                return 0;
+            }
+
+            if (x.Level == y.Level && x.Name.CompareTo(y.Name) > 0) {
+                return 1;
+            }
+
+            if (x.Level > y.Level) {
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

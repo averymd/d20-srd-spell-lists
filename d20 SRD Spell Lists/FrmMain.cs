@@ -10,6 +10,7 @@ using d20_SRD_Spell_Lists.Models;
 using d20_SRD_Spell_Lists.Exceptions;
 using System.Xml.Serialization;
 using System.IO;
+using Printing.DataGridViewPrint.Tools;
 
 namespace d20_SRD_Spell_Lists {
     public partial class FrmMain : Form {
@@ -17,6 +18,7 @@ namespace d20_SRD_Spell_Lists {
         private Character character;
         private string characterFile;
         private bool loadingCharacter;
+        private PrintingDataGridViewProvider printProvider;
 
         public FrmMain() {
             InitializeComponent();
@@ -31,6 +33,29 @@ namespace d20_SRD_Spell_Lists {
             setupSpells();
 
             //spellsDataGridView.CellValueChanged += new DataGridViewCellEventHandler(spellsDataGridView_CellValueChanged);
+        }
+
+        private void setupPrinting() {
+            printDoc = new System.Drawing.Printing.PrintDocument();
+            printDoc.DocumentName = "D20 3.5 Spell List";
+            printDoc.DefaultPageSettings.Margins = new System.Drawing.Printing.Margins(40, 40, 40, 20);
+            printDoc.DefaultPageSettings.Landscape = true;
+            printProvider = PrintingDataGridViewProvider.Create(printDoc, spellsDataGridView, true, true, true,
+                new TitlePrintBlock() {
+                    Title = printDoc.DocumentName,
+                    DCs = this.tableLayoutPanel1,
+                    CharName = character.Name,
+                    CharClass = Character.getSpellcastingClassName(character.CharacterClass),
+                    CharAttr = character.SpellCastingAttribute.ToString(),
+                    CharAttrMod = character.SpellCastingAttributeModAsString(),
+                    CharAttrName = character.SpellCastingAttributeName
+                },
+                new HeaderPrintBlock() {
+                    Header = character.Name
+                },
+                new FooterPrintBlock() {
+                    Footer = "Page XX of YY"
+                });
         }
 
         private void setupSpells() {
@@ -104,9 +129,11 @@ namespace d20_SRD_Spell_Lists {
         private void txtSpellCastingAttribute_TextChanged(object sender, EventArgs e) {
             if (txtSpellCastingAttribute.Text != "") {
                 character.SpellCastingAttribute = int.Parse(txtSpellCastingAttribute.Text);
-                lblSpellCastingAttributeMod.Text = String.Format((character.SpellCastingAttributeMod >= 0) ? "+{0:D}" : "{0:D}", character.SpellCastingAttributeMod);
+                lblSpellCastingAttributeMod.Text = character.SpellCastingAttributeModAsString();
             }
         }
+
+        
 
         private void txtSpellCastingAttribute_LostFocus(object sender, EventArgs e) {
             updateSpellDCs();
@@ -188,6 +215,7 @@ namespace d20_SRD_Spell_Lists {
             var result = addForm.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK) {
                 character.Spells.Add(addForm.spell);
+                character.Spells.Sort(new SpellInequalityComparer());
                 refreshSpellList();
             }
         }
@@ -225,6 +253,26 @@ namespace d20_SRD_Spell_Lists {
                 return true;
             }
             return false;
+        }
+
+        private void helpToolStripButton_Click(object sender, EventArgs e) {
+            FrmCredits credits = new FrmCredits();
+            credits.ShowDialog();
+        }
+
+        private void printToolStripButton_Click(object sender, EventArgs e) {
+
+        }
+
+        private void printPreviewToolstripButton_Click(object sender, EventArgs e) {
+            spellsDataGridView.Columns["editColumn"].Visible = false;
+            spellsDataGridView.Columns["deleteColumn"].Visible = false;
+            setupPrinting();
+            PrintPreviewDialog ppd = new PrintPreviewDialog();
+            ppd.Document = printDoc;
+            ppd.ShowDialog();
+            spellsDataGridView.Columns["editColumn"].Visible = true;
+            spellsDataGridView.Columns["deleteColumn"].Visible = true;
         }
     }
 }

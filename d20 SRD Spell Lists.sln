@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "d20SRDSpellLists.Tests", "d
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "d20SRDSpellLists", "d20 SRD Spell Lists\d20SRDSpellLists.csproj", "{F550B743-1937-4295-9AA2-770F5E0D1FDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Printing.DataGridViewPrint", "Printing.DataGridViewPrint\Printing.DataGridViewPrint.csproj", "{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{F550B743-1937-4295-9AA2-770F5E0D1FDC}.Release|Mixed Platforms.Build.0 = Release|x86
 		{F550B743-1937-4295-9AA2-770F5E0D1FDC}.Release|x86.ActiveCfg = Release|x86
 		{F550B743-1937-4295-9AA2-770F5E0D1FDC}.Release|x86.Build.0 = Release|x86
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FDFCB41B-C75D-476F-A4AA-EFD8C875A677}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

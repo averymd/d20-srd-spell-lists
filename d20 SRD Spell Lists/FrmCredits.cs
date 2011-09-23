@@ -15,7 +15,14 @@ namespace d20_SRD_Spell_Lists {
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            
+            var webBrowser = new WebBrowser();
+            //webBrowser.CreateControl(); // only if needed
+            webBrowser.DocumentText = AssemblyDescription;
+            webBrowser.Document.ExecCommand("SelectAll", false, null);
+            webBrowser.Document.ExecCommand("Copy", false, null);
+            this.textBoxDescription.Text = "";
+            this.textBoxDescription.Paste();
         }
 
         #region Assembly Attribute Accessors

@@ -97,6 +97,11 @@ namespace d20_SRD_Spell_Lists.Models {
 
         public void addAllClassSpells() {
             Spells.AddRange(new MasterSpellSet().byClass(CharacterClass));
+            Spells.Sort(new SpellInequalityComparer());
+        }
+
+        public string SpellCastingAttributeModAsString() {
+            return String.Format((SpellCastingAttributeMod >= 0) ? "+{0:D}" : "{0:D}", SpellCastingAttributeMod);
         }
     }
 }

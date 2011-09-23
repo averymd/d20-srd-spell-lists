@@ -5,12 +5,17 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("d20 SRD Spell Lists")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("D20 SRD Spell Lists")]
+[assembly: AssemblyDescription(@"<p>Major kudos to the following projects:</p>
+    <ul>
+        <li><a href=""http://www.andargor.com/"">Andargor</a>'s SRD 3.5 Database - The spell list (in XML format) is what's used here for the base spells.</li>
+        <li><a href=""http://www.codeproject.com/KB/grid/GridDrawer.Net.aspx"">GridDrawer</a> - Used (with some tweaks) to print the spell lists.</li>
+        <li><a href=""http://www.famfamfam.com/"">FamFamFam</a> - Their Silk icons grace these forms, although I had to create my own print preview icon.</li>
+    </ul>")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Wells Fargo NA")]
-[assembly: AssemblyProduct("d20 SRD Spell Lists")]
-[assembly: AssemblyCopyright("Copyright © Wells Fargo NA 2011")]
+[assembly: AssemblyCompany("Melissa Avery-Weir")]
+[assembly: AssemblyProduct("D20 SRD Spell Lists")]
+[assembly: AssemblyCopyright("Copyright © Melissa Avery-Weir 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +37,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
