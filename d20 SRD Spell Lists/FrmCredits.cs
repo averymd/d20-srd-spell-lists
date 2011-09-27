@@ -14,15 +14,23 @@ namespace d20_SRD_Spell_Lists {
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
             
             var webBrowser = new WebBrowser();
-            //webBrowser.CreateControl(); // only if needed
+            webBrowser.CreateControl(); // only if needed
             webBrowser.DocumentText = AssemblyDescription;
+            while (webBrowser.DocumentText != AssemblyDescription)
+                Application.DoEvents();
             webBrowser.Document.ExecCommand("SelectAll", false, null);
             webBrowser.Document.ExecCommand("Copy", false, null);
-            this.textBoxDescription.Text = "";
-            this.textBoxDescription.Paste();
+            textBoxDescription.BorderStyle = BorderStyle.None;
+            textBoxDescription.Text = "";
+            textBoxDescription.Paste();
+            textBoxDescription.SelectAll();
+            textBoxDescription.ReadOnly = true;
+            textBoxDescription.BackColor = labelProductName.BackColor;
+            textBoxDescription.SelectionBackColor = labelProductName.BackColor;
+            textBoxDescription.SelectionFont = labelProductName.Font;
+            textBoxDescription.Select(0, 0);
         }
 
         #region Assembly Attribute Accessors

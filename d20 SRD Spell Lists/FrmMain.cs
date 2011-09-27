@@ -11,6 +11,7 @@ using d20_SRD_Spell_Lists.Exceptions;
 using System.Xml.Serialization;
 using System.IO;
 using Printing.DataGridViewPrint.Tools;
+using System.Reflection;
 
 namespace d20_SRD_Spell_Lists {
     public partial class FrmMain : Form {
@@ -23,6 +24,8 @@ namespace d20_SRD_Spell_Lists {
 
         public FrmMain() {
             InitializeComponent();
+
+            this.Text = AssemblyTitle;
 
             character = new Character();
             spells = new MasterSpellSet();
@@ -339,6 +342,7 @@ namespace d20_SRD_Spell_Lists {
                 character.SpellCastingAttribute = 10;
                 loadValues();
                 charClassComboBox.SelectedIndex = 0;
+                dirtyCharacter = false;
                 loadingCharacter = false;
             }
         }
@@ -346,6 +350,19 @@ namespace d20_SRD_Spell_Lists {
         private void FrmMain_Closing(object sender, CancelEventArgs e) {
             if (sender != this || !promptSaveAndContinue()) {
                 e.Cancel = true;
+            }
+        }
+
+        public string AssemblyTitle {
+            get {
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                if (attributes.Length > 0) {
+                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    if (titleAttribute.Title != "") {
+                        return titleAttribute.Title;
+                    }
+                }
+                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
     }
