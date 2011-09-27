@@ -23,9 +23,9 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblExtra9 = new System.Windows.Forms.Label();
             this.lblExtra8 = new System.Windows.Forms.Label();
@@ -504,7 +504,7 @@
             this.charClassComboBox.Location = new System.Drawing.Point(56, 66);
             this.charClassComboBox.Name = "charClassComboBox";
             this.charClassComboBox.Size = new System.Drawing.Size(156, 21);
-            this.charClassComboBox.TabIndex = 3;
+            this.charClassComboBox.TabIndex = 1;
             // 
             // label6
             // 
@@ -526,7 +526,7 @@
             this.groupBox1.Location = new System.Drawing.Point(15, 98);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(201, 73);
-            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Attributes";
             // 
@@ -573,7 +573,7 @@
             this.txtCharacter.Location = new System.Drawing.Point(56, 40);
             this.txtCharacter.Name = "txtCharacter";
             this.txtCharacter.Size = new System.Drawing.Size(156, 20);
-            this.txtCharacter.TabIndex = 2;
+            this.txtCharacter.TabIndex = 0;
             this.txtCharacter.TextChanged += new System.EventHandler(this.txtCharacter_TextChanged);
             // 
             // label2
@@ -612,7 +612,7 @@
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(710, 25);
-            this.mainToolStrip.TabIndex = 11;
+            this.mainToolStrip.TabIndex = 1;
             // 
             // newToolStripButton
             // 
@@ -780,10 +780,10 @@
             // editColumn
             // 
             this.editColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle17.NullValue")));
-            this.editColumn.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle1.NullValue")));
+            this.editColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.editColumn.HeaderText = "";
             this.editColumn.Image = global::d20_SRD_Spell_Lists.Properties.Resources.pencil;
             this.editColumn.Name = "editColumn";
@@ -808,7 +808,7 @@
             this.btnAdd.Location = new System.Drawing.Point(623, 144);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 6;
+            this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "Add Spell";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -837,8 +837,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.spellsDataGridView);
             this.splitContainer1.Size = new System.Drawing.Size(710, 537);
             this.splitContainer1.SplitterDistance = 179;
-            this.splitContainer1.TabIndex = 5;
-            this.splitContainer1.TabStop = true;
+            this.splitContainer1.TabIndex = 0;
             // 
             // printDoc
             // 
@@ -847,10 +846,10 @@
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle18.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle18.NullValue")));
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle2.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle2.NullValue")));
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewImageColumn1.HeaderText = "";
             this.dataGridViewImageColumn1.Image = global::d20_SRD_Spell_Lists.Properties.Resources.edit_16;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
