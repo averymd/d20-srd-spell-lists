@@ -23,9 +23,9 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblExtra9 = new System.Windows.Forms.Label();
             this.lblExtra8 = new System.Windows.Forms.Label();
@@ -83,11 +83,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.spellsDataGridView = new System.Windows.Forms.DataGridView();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.printDoc = new System.Drawing.Printing.PrintDocument();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.prepColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.levelColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.spellNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,6 +90,11 @@
             this.descColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.deleteColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.printDoc = new System.Drawing.Printing.PrintDocument();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -504,7 +504,7 @@
             this.charClassComboBox.Location = new System.Drawing.Point(56, 66);
             this.charClassComboBox.Name = "charClassComboBox";
             this.charClassComboBox.Size = new System.Drawing.Size(156, 21);
-            this.charClassComboBox.TabIndex = 23;
+            this.charClassComboBox.TabIndex = 3;
             // 
             // label6
             // 
@@ -526,7 +526,7 @@
             this.groupBox1.Location = new System.Drawing.Point(15, 98);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(201, 73);
-            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Attributes";
             // 
@@ -536,7 +536,7 @@
             this.txtSpellCastingAttribute.Mask = "00";
             this.txtSpellCastingAttribute.Name = "txtSpellCastingAttribute";
             this.txtSpellCastingAttribute.Size = new System.Drawing.Size(33, 20);
-            this.txtSpellCastingAttribute.TabIndex = 20;
+            this.txtSpellCastingAttribute.TabIndex = 0;
             this.txtSpellCastingAttribute.Text = "10";
             this.txtSpellCastingAttribute.ValidatingType = typeof(int);
             this.txtSpellCastingAttribute.TextChanged += new System.EventHandler(this.txtSpellCastingAttribute_TextChanged);
@@ -573,7 +573,7 @@
             this.txtCharacter.Location = new System.Drawing.Point(56, 40);
             this.txtCharacter.Name = "txtCharacter";
             this.txtCharacter.Size = new System.Drawing.Size(156, 20);
-            this.txtCharacter.TabIndex = 8;
+            this.txtCharacter.TabIndex = 2;
             this.txtCharacter.TextChanged += new System.EventHandler(this.txtCharacter_TextChanged);
             // 
             // label2
@@ -591,7 +591,7 @@
             this.lblDirections.Location = new System.Drawing.Point(12, 14);
             this.lblDirections.Name = "lblDirections";
             this.lblDirections.Size = new System.Drawing.Size(578, 13);
-            this.lblDirections.TabIndex = 0;
+            this.lblDirections.TabIndex = 1;
             this.lblDirections.Text = "Provide as much or as little information as you\'d like. We\'ll use your class and " +
     "spellcasting attribute to determine spell DCs.";
             // 
@@ -612,7 +612,7 @@
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(710, 25);
-            this.mainToolStrip.TabIndex = 1;
+            this.mainToolStrip.TabIndex = 11;
             // 
             // newToolStripButton
             // 
@@ -728,72 +728,8 @@
             this.spellsDataGridView.Name = "spellsDataGridView";
             this.spellsDataGridView.ReadOnly = true;
             this.spellsDataGridView.Size = new System.Drawing.Size(710, 354);
-            this.spellsDataGridView.TabIndex = 24;
+            this.spellsDataGridView.TabIndex = 0;
             this.spellsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.spellsDataGridView_CellContentClick);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Location = new System.Drawing.Point(623, 144);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 25;
-            this.btnAdd.Text = "Add Spell";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.lblDirections);
-            this.splitContainer1.Panel1.Controls.Add(this.btnAdd);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.txtCharacter);
-            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
-            this.splitContainer1.Panel1.Controls.Add(this.charClassComboBox);
-            this.splitContainer1.Panel1.Controls.Add(this.label6);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.spellsDataGridView);
-            this.splitContainer1.Size = new System.Drawing.Size(710, 537);
-            this.splitContainer1.SplitterDistance = 179;
-            this.splitContainer1.TabIndex = 26;
-            // 
-            // printDoc
-            // 
-            this.printDoc.DocumentName = "Spell List";
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle2.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle2.NullValue")));
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = global::d20_SRD_Spell_Lists.Properties.Resources.edit_16;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn1.ToolTipText = "Edit spell";
-            // 
-            // dataGridViewImageColumn2
-            // 
-            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn2.HeaderText = "";
-            this.dataGridViewImageColumn2.Image = global::d20_SRD_Spell_Lists.Properties.Resources.editdelete_16;
-            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
-            this.dataGridViewImageColumn2.ReadOnly = true;
-            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // prepColumn
             // 
@@ -844,10 +780,10 @@
             // editColumn
             // 
             this.editColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle1.NullValue")));
-            this.editColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle17.NullValue")));
+            this.editColumn.DefaultCellStyle = dataGridViewCellStyle17;
             this.editColumn.HeaderText = "";
             this.editColumn.Image = global::d20_SRD_Spell_Lists.Properties.Resources.pencil;
             this.editColumn.Name = "editColumn";
@@ -865,6 +801,71 @@
             this.deleteColumn.ReadOnly = true;
             this.deleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.deleteColumn.Width = 5;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Location = new System.Drawing.Point(623, 144);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 6;
+            this.btnAdd.Text = "Add Spell";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.lblDirections);
+            this.splitContainer1.Panel1.Controls.Add(this.btnAdd);
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
+            this.splitContainer1.Panel1.Controls.Add(this.txtCharacter);
+            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.charClassComboBox);
+            this.splitContainer1.Panel1.Controls.Add(this.label6);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.spellsDataGridView);
+            this.splitContainer1.Size = new System.Drawing.Size(710, 537);
+            this.splitContainer1.SplitterDistance = 179;
+            this.splitContainer1.TabIndex = 5;
+            this.splitContainer1.TabStop = true;
+            // 
+            // printDoc
+            // 
+            this.printDoc.DocumentName = "D20 3.5 SRD Spell List";
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle18.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle18.NullValue")));
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::d20_SRD_Spell_Lists.Properties.Resources.edit_16;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.ToolTipText = "Edit spell";
+            // 
+            // dataGridViewImageColumn2
+            // 
+            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn2.HeaderText = "";
+            this.dataGridViewImageColumn2.Image = global::d20_SRD_Spell_Lists.Properties.Resources.editdelete_16;
+            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
+            this.dataGridViewImageColumn2.ReadOnly = true;
+            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // FrmMain
             // 

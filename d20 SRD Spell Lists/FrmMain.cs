@@ -37,7 +37,7 @@ namespace d20_SRD_Spell_Lists {
 
         private void setupPrinting() {
             printDoc = new System.Drawing.Printing.PrintDocument();
-            printDoc.DocumentName = "D20 3.5 Spell List";
+            printDoc.DocumentName = "D20 3.5 SRD Spell List";
             printDoc.DefaultPageSettings.Margins = new System.Drawing.Printing.Margins(40, 40, 40, 20);
             printDoc.DefaultPageSettings.Landscape = true;
             printProvider = PrintingDataGridViewProvider.Create(printDoc, spellsDataGridView, true, true, true,
@@ -261,7 +261,14 @@ namespace d20_SRD_Spell_Lists {
         }
 
         private void printToolStripButton_Click(object sender, EventArgs e) {
-
+            spellsDataGridView.Columns["editColumn"].Visible = false;
+            spellsDataGridView.Columns["deleteColumn"].Visible = false;
+            setupPrinting();
+            PrintDialog pd = new PrintDialog();
+            pd.Document = printDoc;
+            pd.ShowDialog();
+            spellsDataGridView.Columns["editColumn"].Visible = true;
+            spellsDataGridView.Columns["deleteColumn"].Visible = true;
         }
 
         private void printPreviewToolstripButton_Click(object sender, EventArgs e) {

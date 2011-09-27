@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
     </ul>")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Melissa Avery-Weir")]
-[assembly: AssemblyProduct("D20 SRD Spell Lists")]
+[assembly: AssemblyProduct("D20 3.5 SRD Spell Lists")]
 [assembly: AssemblyCopyright("Copyright © Melissa Avery-Weir 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
