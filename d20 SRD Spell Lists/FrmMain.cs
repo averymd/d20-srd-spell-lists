@@ -18,6 +18,7 @@ namespace d20_SRD_Spell_Lists {
         private Character character;
         private string characterFile;
         private bool loadingCharacter;
+        private bool dirtyCharacter;
         private PrintingDataGridViewProvider printProvider;
 
         public FrmMain() {
@@ -27,6 +28,7 @@ namespace d20_SRD_Spell_Lists {
             spells = new MasterSpellSet();
             spellsDataGridView.AutoGenerateColumns = false;
             loadingCharacter = false;
+            dirtyCharacter = false;
 
             setupAttributes();
             setupClassList();
@@ -87,6 +89,8 @@ namespace d20_SRD_Spell_Lists {
                     offerNewSpells();
                 }
             }
+
+            dirtyCharacter = true;
         }
 
         private void offerNewSpells() {
@@ -169,29 +173,50 @@ namespace d20_SRD_Spell_Lists {
             XmlSerializer serializer = new XmlSerializer(typeof(Character));
             using (TextWriter writer = new StreamWriter(characterFile)) {
                 serializer.Serialize(writer, character);
+                dirtyCharacter = false;
             }
         }
         
         private void txtCharacter_TextChanged(object sender, EventArgs e) {
             character.Name = txtCharacter.Text;
+            dirtyCharacter = true;
+        }
+
+        private bool promptSaveAndContinue() {
+            if (dirtyCharacter) {
+                string msg = "Do you want to save your current character?";
+                string title = "Save?";
+                var result = MessageBox.Show(msg, title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == System.Windows.Forms.DialogResult.Yes) {
+                    saveToolStripButton.PerformClick();
+                    return true;
+                } else if (result == System.Windows.Forms.DialogResult.Cancel) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e) {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Character files (*.xml)|*.xml|All files (*.*)|*.*";
-            ofd.FilterIndex = 1;
-            ofd.RestoreDirectory = true;
+            if (promptSaveAndContinue()) {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "Character files (*.xml)|*.xml|All files (*.*)|*.*";
+                ofd.FilterIndex = 1;
+                ofd.RestoreDirectory = true;
 
-            if (ofd.ShowDialog() == DialogResult.OK) {
-                try {
-                    characterFile = ofd.FileName;
-                    loadingCharacter = true;
-                    loadCharacter();
-                    loadValues();
-                } catch (Exception ex) {
-                    MessageBox.Show("Error: Could not read the character file. Original error: " + ex.Message);
-                } finally {
-                    loadingCharacter = false;
+                if (ofd.ShowDialog() == DialogResult.OK) {
+                    try {
+                        characterFile = ofd.FileName;
+                        loadingCharacter = true;
+                        loadCharacter();
+                        loadValues();
+                    } catch (Exception ex) {
+                        MessageBox.Show("Error: Could not read the character file. Original error: " + ex.Message);
+                    } finally {
+                        loadingCharacter = false;
+                        dirtyCharacter = false;
+                    }
                 }
             }
         }
@@ -217,6 +242,7 @@ namespace d20_SRD_Spell_Lists {
                 character.Spells.Add(addForm.spell);
                 character.Spells.Sort(new SpellInequalityComparer());
                 refreshSpellList();
+                dirtyCharacter = true;
             }
         }
 
@@ -228,6 +254,7 @@ namespace d20_SRD_Spell_Lists {
                 if (result == System.Windows.Forms.DialogResult.OK) {
                     character.Spells[character.Spells.IndexOf(editItem)] = editForm.spell;
                     refreshSpellList();
+                    dirtyCharacter = true;
                 }
             } else if (isDeleteButtonCell(e)) {
                 Spell deleteItem = (Spell)spellsDataGridView.Rows[e.RowIndex].DataBoundItem;
@@ -237,6 +264,7 @@ namespace d20_SRD_Spell_Lists {
                 if (result == System.Windows.Forms.DialogResult.Yes) {
                     character.Spells.Remove(deleteItem);
                     refreshSpellList();
+                    dirtyCharacter = true;
                 }
             }
         }
@@ -280,6 +308,45 @@ namespace d20_SRD_Spell_Lists {
             ppd.ShowDialog();
             spellsDataGridView.Columns["editColumn"].Visible = true;
             spellsDataGridView.Columns["deleteColumn"].Visible = true;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+            switch (keyData) {
+                case (Keys.Control | Keys.O):
+                    openToolStripButton.PerformClick();
+                    return true;
+                case (Keys.Control | Keys.S):
+                    saveToolStripButton.PerformClick();
+                    return true;
+                case (Keys.Control | Keys.N):
+                    newToolStripButton.PerformClick();
+                    return true;
+                case (Keys.Control | Keys.P):
+                    printToolStripButton.PerformClick();
+                    return true;
+                case (Keys.Control | Keys.H):
+                    helpToolStripButton.PerformClick();
+                    return true;
+                default:
+                    return base.ProcessCmdKey(ref msg, keyData);
+            }            
+        }
+
+        private void newToolStripButton_Click(object sender, EventArgs e) {
+            if (promptSaveAndContinue()) {
+                loadingCharacter = true;
+                character = new Character();
+                character.SpellCastingAttribute = 10;
+                loadValues();
+                charClassComboBox.SelectedIndex = 0;
+                loadingCharacter = false;
+            }
+        }
+
+        private void FrmMain_Closing(object sender, CancelEventArgs e) {
+            if (sender != this || !promptSaveAndContinue()) {
+                e.Cancel = true;
+            }
         }
     }
 }
