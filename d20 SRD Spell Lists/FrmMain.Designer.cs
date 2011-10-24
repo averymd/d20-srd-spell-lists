@@ -24,9 +24,10 @@ namespace d20_SRD_Spell_Lists {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblExtra9 = new System.Windows.Forms.Label();
             this.lblExtra8 = new System.Windows.Forms.Label();
@@ -96,6 +97,7 @@ namespace d20_SRD_Spell_Lists {
             this.printDoc = new System.Drawing.Printing.PrintDocument();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.mainAppUpdater = new Microsoft.Samples.AppUpdater.AppUpdater(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -104,6 +106,7 @@ namespace d20_SRD_Spell_Lists {
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainAppUpdater)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -782,10 +785,10 @@ namespace d20_SRD_Spell_Lists {
             // editColumn
             // 
             this.editColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle3.NullValue")));
-            this.editColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle1.NullValue")));
+            this.editColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.editColumn.HeaderText = "";
             this.editColumn.Image = global::d20_SRD_Spell_Lists.Properties.Resources.pencil;
             this.editColumn.Name = "editColumn";
@@ -848,10 +851,10 @@ namespace d20_SRD_Spell_Lists {
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle4.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle4.NullValue")));
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle2.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle2.NullValue")));
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewImageColumn1.HeaderText = "";
             this.dataGridViewImageColumn1.Image = global::d20_SRD_Spell_Lists.Properties.Resources.edit_16;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
@@ -868,6 +871,13 @@ namespace d20_SRD_Spell_Lists {
             this.dataGridViewImageColumn2.ReadOnly = true;
             this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // mainAppUpdater
+            // 
+            this.mainAppUpdater.AutoFileLoad = true;
+            this.mainAppUpdater.ChangeDetectionMode = Microsoft.Samples.AppUpdater.ChangeDetectionModes.ServerManifestCheck;
+            this.mainAppUpdater.ShowDefaultUI = true;
+            this.mainAppUpdater.UpdateUrl = "http://downloads.thecharonsheet.com/d20-srd-spell-lists/manifest.xml";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -877,7 +887,7 @@ namespace d20_SRD_Spell_Lists {
             this.Controls.Add(this.mainToolStrip);
             this.Name = "FrmMain";
             this.Text = "D&D 3.5 SRD Spell Lists";
-            this.Closing += new CancelEventHandler(this.FrmMain_Closing);
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.FrmMain_Closing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -890,6 +900,7 @@ namespace d20_SRD_Spell_Lists {
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainAppUpdater)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -966,6 +977,7 @@ namespace d20_SRD_Spell_Lists {
         private System.Windows.Forms.DataGridViewTextBoxColumn descColumn;
         private System.Windows.Forms.DataGridViewImageColumn editColumn;
         private System.Windows.Forms.DataGridViewImageColumn deleteColumn;
+        private Microsoft.Samples.AppUpdater.AppUpdater mainAppUpdater;
     }
 }
 
