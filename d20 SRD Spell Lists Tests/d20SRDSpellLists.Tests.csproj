@@ -39,7 +39,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="xunit">
-      <HintPath>G:\xunit.net\xunit.dll</HintPath>
+      <HintPath>..\d20 SRD Spell Lists\lib\xunit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

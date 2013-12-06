@@ -12,6 +12,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Printing.DataGridViewPrint.Tools;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace d20_SRD_Spell_Lists {
     public partial class FrmMain : Form {
@@ -102,13 +103,7 @@ namespace d20_SRD_Spell_Lists {
             var result = MessageBox.Show(question, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (result == System.Windows.Forms.DialogResult.Yes) {
                 character.addAllClassSpells();
-                refreshSpellList();
             }
-        }
-
-        private void refreshSpellList() {
-            spellsDataGridView.DataSource = null;
-            setupSpells();
         }
 
         private void updateClassInformation(ComboBox classList) {
@@ -235,7 +230,6 @@ namespace d20_SRD_Spell_Lists {
             txtCharacter.Text = character.Name;
             txtSpellCastingAttribute.Text = character.SpellCastingAttribute.ToString();
             charClassComboBox.SelectedItem = Character.getSpellcastingClassName(character.CharacterClass);
-            refreshSpellList();
         }
 
         private void btnAdd_Click(object sender, EventArgs e) {
@@ -244,7 +238,6 @@ namespace d20_SRD_Spell_Lists {
             if (result == System.Windows.Forms.DialogResult.OK) {
                 character.Spells.Add(addForm.spell);
                 character.Spells.Sort(new SpellInequalityComparer());
-                refreshSpellList();
                 dirtyCharacter = true;
             }
         }
@@ -256,7 +249,6 @@ namespace d20_SRD_Spell_Lists {
                 var result = editForm.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.OK) {
                     character.Spells[character.Spells.IndexOf(editItem)] = editForm.spell;
-                    refreshSpellList();
                     dirtyCharacter = true;
                 }
             } else if (isDeleteButtonCell(e)) {
@@ -266,7 +258,6 @@ namespace d20_SRD_Spell_Lists {
                 var result = MessageBox.Show(msg, title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == System.Windows.Forms.DialogResult.Yes) {
                     character.Spells.Remove(deleteItem);
-                    refreshSpellList();
                     dirtyCharacter = true;
                 }
             }

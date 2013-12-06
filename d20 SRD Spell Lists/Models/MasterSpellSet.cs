@@ -133,7 +133,7 @@ namespace d20_SRD_Spell_Lists.Models {
             string c = Character.getSpellcastingClassName(characterClass);
             Regex levelReg = new Regex(@" (\d+),?");
             return (from sp in masterSpellList.Elements("spell")
-                    let xmlLevel = (string)sp.Element("level")
+                    let xmlLevel = (string)sp.Element("level") ?? "0"
                     orderby (string)sp.Element("name")
                     where (string)sp.Element("name") == name
                     select new Spell {

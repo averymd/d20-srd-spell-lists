@@ -6,14 +6,16 @@ using System.Xml;
 using System.Xml.Linq;
 using d20_SRD_Spell_Lists.Exceptions;
 using System.Xml.Serialization;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace d20_SRD_Spell_Lists.Models {
     public class Character {
 
-        public List<Spell> Spells { get; set; }
+        public BindingList<Spell> Spells { get; set; }
 
         public Character() {
-            Spells = new List<Spell>();
+            Spells = new BindingList<Spell>();
         }
 
         private int modifier(int score) {

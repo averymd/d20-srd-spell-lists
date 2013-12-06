@@ -97,7 +97,6 @@ namespace d20_SRD_Spell_Lists {
             this.printDoc = new System.Drawing.Printing.PrintDocument();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.mainAppUpdater = new Microsoft.Samples.AppUpdater.AppUpdater(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -106,7 +105,6 @@ namespace d20_SRD_Spell_Lists {
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mainAppUpdater)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -871,13 +869,6 @@ namespace d20_SRD_Spell_Lists {
             this.dataGridViewImageColumn2.ReadOnly = true;
             this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // mainAppUpdater
-            // 
-            this.mainAppUpdater.AutoFileLoad = true;
-            this.mainAppUpdater.ChangeDetectionMode = Microsoft.Samples.AppUpdater.ChangeDetectionModes.ServerManifestCheck;
-            this.mainAppUpdater.ShowDefaultUI = true;
-            this.mainAppUpdater.UpdateUrl = "http://downloads.thecharonsheet.com/d20-srd-spell-lists/manifest.xml";
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -900,7 +891,6 @@ namespace d20_SRD_Spell_Lists {
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainAppUpdater)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -977,7 +967,6 @@ namespace d20_SRD_Spell_Lists {
         private System.Windows.Forms.DataGridViewTextBoxColumn descColumn;
         private System.Windows.Forms.DataGridViewImageColumn editColumn;
         private System.Windows.Forms.DataGridViewImageColumn deleteColumn;
-        private Microsoft.Samples.AppUpdater.AppUpdater mainAppUpdater;
     }
 }
 
